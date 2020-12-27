@@ -1,7 +1,7 @@
 {
   "name": "RaftModPingSystem",
-  "author": "",
-  "description": "",
+  "author": "B3none",
+  "description": "A pinging system for Raft",
   "version": "1.0",
   "license": "GNU AGPLv3",
   "icon": "icon.png",
