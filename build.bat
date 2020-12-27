@@ -16,5 +16,6 @@ if exist "%foldername%.rmod" ( del "%foldername%.rmod" )
 powershell "[System.Reflection.Assembly]::LoadWithPartialName('System.IO.Compression.FileSystem');[System.IO.Compression.ZipFile]::CreateFromDirectory(\"build\", \"%foldername%.rmod\", 0, 0)"
 :: Deleting the "build" folder
 rmdir /s /q "build"
+
 :: Build succeeded!
-EXIT
+:: EXIT

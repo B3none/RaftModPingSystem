@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class RaftModPingSystem : Mod
 {
-    private bool show = false;
-    List<Network_Player> currentPlayers = new List<Network_Player>();
+    public static List<Network_Player> currentPlayers = new List<Network_Player>();
 
     public void Start()
     {
@@ -11,42 +12,37 @@ public class RaftModPingSystem : Mod
     }
 
     public void Update()
-    {   
-        if (CanvasHelper.ActiveMenu !== MenuType.Inventory && Input.GetKeyDown(KeyCode.LeftAlt)) {
-            if (!show) {
-                currentPlayers.Clear();
-                
-                var players = FindObjectsOfType<Network_Player>();
-                var localPlayer = RAPI.GetLocalPlayer();
+    {
+        if (Input.GetKeyDown(KeyCode.LeftAlt)) {
+            Debug.Log(CanvasHelper.ActiveMenu);
+            Debug.Log("LeftAlt pressed and menu not open");
 
-                foreach (var player in players)
-                {
-                    if (player != localPlayer) {
-                        currentPlayers.Add(player);
-                    }
+            currentPlayers.Clear();
+            
+            var players = FindObjectsOfType<Network_Player>();
+            var localPlayer = RAPI.GetLocalPlayer();
+
+            foreach (var player in players)
+            {
+                if (player != localPlayer) {
+                    currentPlayers.Add(player);
                 }
             }
-
-            show = !show;
             
-            Network_Player player = RAPI.GetLocalPlayer();
+            Network_Player thisPlayer = RAPI.GetLocalPlayer();
 
-            if (player != null) {
-                SortPlayerInventory(player);
+            if (thisPlayer != null) {
+                PlayerPing(thisPlayer);
             }
         }
     }
 
     private void PlayerPing(Network_Player player) {
-        
+        OnGUI();
     }
 
     void OnGUI()
     {
-        if (!show) {
-            return;
-        }
-
         foreach (var player in currentPlayers)
         {
             if (player == null) {
